@@ -1,0 +1,25 @@
+social_auth_paypal.redirect_to_paypal:
+  path: 'user/login/paypal'
+  defaults:
+    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::redirectToPaypal'
+  requirements:
+    _role: 'anonymous'
+  options:
+    no_cache: TRUE
+
+social_auth_paypal.callback:
+  path: 'user/login/paypal/callback'
+  defaults:
+    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::callback'
+  requirements:
+    _role: 'anonymous'
+  options:
+    no_cache: TRUE
+
+social_auth_paypal.settings_form:
+  path: 'admin/config/social-api/social-auth/paypal'
+  defaults:
+    _title: 'Social Auth Paypal settings'
+    _form: '\Drupal\social_auth_paypal\Form\PaypalAuthSettingsForm'
+  requirements:
+    _permission: 'administer social api authentication'

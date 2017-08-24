@@ -1,0 +1,26 @@
+{
+    "name": "drupal/social_auth_paypal",
+    "type": "drupal-module",
+    "description": "Social Auth integration for Paypal.",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0+",
+    "homepage": "https://www.drupal.org/project/social_auth_paypal",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/social_auth_paypal",
+        "source": "http://cgit.drupalcode.org/social_auth_paypal"
+    },
+    "require": {
+        "stevenmaguire/oauth2-paypal": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Getulio Valentin Sánchez (gvso)",
+            "email": "valentin2507@gmail.com"
+        },
+        {
+            "name": "Himanshu Dixit (himanshu-dixit)",
+            "email": "hudixt@gmail.com"
+        }
+    ]
+}

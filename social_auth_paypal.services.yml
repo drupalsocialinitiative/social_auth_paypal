@@ -1,0 +1,9 @@
+services:
+  social_auth_paypal.manager:
+    class: Drupal\social_auth_paypal\PaypalAuthManager
+    arguments:
+      - '@logger.factory'
+      - '@event_dispatcher'
+      - '@entity_field.manager'
+      - '@url_generator.non_bubbling'
+      - '@config.factory'
