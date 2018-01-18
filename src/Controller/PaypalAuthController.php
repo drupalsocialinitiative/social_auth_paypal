@@ -10,7 +10,6 @@ use Drupal\social_auth_paypal\PaypalAuthManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * Returns responses for Simple Paypal Connect module routes.
@@ -52,14 +51,6 @@ class PaypalAuthController extends ControllerBase {
    */
   private $dataHandler;
 
-
-  /**
-   * The logger channel.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
-   */
-  protected $loggerFactory;
-
   /**
    * PaypalAuthController constructor.
    *
@@ -71,19 +62,20 @@ class PaypalAuthController extends ControllerBase {
    *   Used to manage authentication methods.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request
    *   Used to access GET parameters.
-   * @param \Drupal\social_auth\SocialAuthDataHandler $social_auth_data_handler
+   * @param \Drupal\social_auth\SocialAuthDataHandler $data_handler
    *   SocialAuthDataHandler object.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
-   *   Used for logging errors.
    */
-  public function __construct(NetworkManager $network_manager, SocialAuthUserManager $user_manager, PaypalAuthManager $paypal_manager, RequestStack $request, SocialAuthDataHandler $social_auth_data_handler, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(NetworkManager $network_manager,
+                              SocialAuthUserManager $user_manager,
+                              PaypalAuthManager $paypal_manager,
+                              RequestStack $request,
+                              SocialAuthDataHandler $data_handler) {
 
     $this->networkManager = $network_manager;
     $this->userManager = $user_manager;
     $this->paypalManager = $paypal_manager;
     $this->request = $request;
-    $this->dataHandler = $social_auth_data_handler;
-    $this->loggerFactory = $logger_factory;
+    $this->dataHandler = $data_handler;
 
     // Sets the plugin id.
     $this->userManager->setPluginId('social_auth_paypal');
@@ -102,8 +94,7 @@ class PaypalAuthController extends ControllerBase {
       $container->get('social_auth.user_manager'),
       $container->get('social_auth_paypal.manager'),
       $container->get('request_stack'),
-      $container->get('social_auth.social_auth_data_handler'),
-      $container->get('logger.factory')
+      $container->get('social_auth.data_handler')
     );
   }
 
@@ -113,7 +104,7 @@ class PaypalAuthController extends ControllerBase {
    * Redirects the user to Paypal for authentication.
    */
   public function redirectToPaypal() {
-    /* @var \League\OAuth2\Client\Provider\Paypal false $paypal */
+    /* @var \Stevenmaguire\OAuth2\Client\Provider\Paypal|false $paypal */
     $paypal = $this->networkManager->createInstance('social_auth_paypal')->getSdk();
 
     // If paypal client could not be obtained.
@@ -126,8 +117,6 @@ class PaypalAuthController extends ControllerBase {
     $this->paypalManager->setClient($paypal);
 
     // Generates the URL where the user will be redirected for Paypal login.
-    // If the user did not have email permission granted on previous attempt,
-    // we use the re-request URL requesting only the email address.
     $paypal_login_url = $this->paypalManager->getPaypalLoginUrl();
 
     $state = $this->paypalManager->getState();
@@ -150,7 +139,7 @@ class PaypalAuthController extends ControllerBase {
       return $this->redirect('user.login');
     }
 
-    /* @var \League\OAuth2\Client\Provider\Paypal false $paypal */
+    /* @var \Stevenmaguire\OAuth2\Client\Provider\Paypal|false $paypal */
     $paypal = $this->networkManager->createInstance('social_auth_paypal')->getSdk();
 
     // If Paypal client could not be obtained.
@@ -165,7 +154,7 @@ class PaypalAuthController extends ControllerBase {
     $retrievedState = $this->request->getCurrentRequest()->query->get('state');
     if (empty($retrievedState) || ($retrievedState !== $state)) {
       $this->userManager->nullifySessionKeys();
-      drupal_set_message($this->t('Paypal login failed. Unvalid oAuth2 State.'), 'error');
+      drupal_set_message($this->t('Paypal login failed. Unvalid OAuth2 State.'), 'error');
       return $this->redirect('user.login');
     }
 
@@ -175,6 +164,7 @@ class PaypalAuthController extends ControllerBase {
     $this->paypalManager->setClient($paypal)->authenticate();
 
     // Gets user's info from Paypal API.
+    /* @var \Stevenmaguire\OAuth2\Client\Provider\PaypalResourceOwner $paypal_profile */
     if (!$paypal_profile = $this->paypalManager->getUserInfo()) {
       drupal_set_message($this->t('Paypal login failed, could not load Paypal profile. Contact site administrator.'), 'error');
       return $this->redirect('user.login');
@@ -192,7 +182,7 @@ class PaypalAuthController extends ControllerBase {
       array_push($data, $call);
     }
     // If user information could be retrieved.
-    return $this->userManager->authenticateUser($paypal_profile->getName(), $paypal_profile->getEmail(), $paypal_profile->getId(), $this->paypalManager->getAccessToken(), '', '');
+    return $this->userManager->authenticateUser($paypal_profile->getName(), $paypal_profile->getEmail(), $paypal_profile->getId(), $this->paypalManager->getAccessToken());
 
   }
 

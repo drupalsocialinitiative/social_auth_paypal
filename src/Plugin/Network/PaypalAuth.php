@@ -6,13 +6,13 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Routing\RequestContext;
+use Drupal\Core\Site\Settings;
 use Drupal\social_auth\SocialAuthDataHandler;
 use Drupal\social_api\Plugin\NetworkBase;
 use Drupal\social_api\SocialApiException;
 use Drupal\social_auth_paypal\Settings\PaypalAuthSettings;
+use Stevenmaguire\OAuth2\Client\Provider\Paypal;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use League\OAuth2\Client\Provider\Paypal;
-use Drupal\Core\Site\Settings;
 
 /**
  * Defines a Network Plugin for Social Auth Paypal.
@@ -66,7 +66,7 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
-      $container->get('social_auth.social_auth_data_handler'),
+      $container->get('social_auth.data_handler'),
       $configuration,
       $plugin_id,
       $plugin_definition,
@@ -122,7 +122,7 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
   /**
    * Sets the underlying SDK library.
    *
-   * @return \League\OAuth2\Client\Provider\Paypal
+   * @return \Stevenmaguire\OAuth2\Client\Provider\Paypal
    *   The initialized 3rd party library instance.
    *
    * @throws SocialApiException
@@ -146,7 +146,7 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
           'clientSecret' => $settings->getClientSecret(),
           'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/paypal/callback',
           'proxy' => $proxyUrl,
-          'isSandbox'  => true,
+          'isSandbox'  => TRUE,
         ];
       }
       else {
@@ -154,11 +154,11 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
           'clientId' => $settings->getClientId(),
           'clientSecret' => $settings->getClientSecret(),
           'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/paypal/callback',
-          'isSandbox'  => true,
+          'isSandbox'  => TRUE,
         ];
       }
 
-      return new \Stevenmaguire\OAuth2\Client\Provider\Paypal($league_settings);
+      return new Paypal($league_settings);
     }
     return FALSE;
   }
