@@ -1,20 +1,20 @@
-SOCIAL AUTH GOOGLE MODULE
-
 CONTENTS OF THIS FILE
 ---------------------
 
  * Introduction
  * Requirements
- * Recommended modules
  * Installation
  * Configuration
  * How it works
  * Support requests
+ * Maintainers
+
 
 INTRODUCTION
 ------------
 
 Social Auth Paypal Module is a Paypal Authentication integration for Drupal.
+
 
 REQUIREMENTS
 ------------
@@ -25,25 +25,18 @@ This module requires the following modules:
  * Social API (https://drupal.org/project/social_api)
 
 
-RECOMMENDED MODULES
--------------------
-
- * Composer Manager (https://www.drupal.org/project/composer_manager):
-   This module will help to install the League PHP library and Paypal base library for the league,
-   which are the libraries required to make user authentication.
-
 INSTALLATION
 ------------
 
- * Download Paypal Base Library for TheLeague OAuth2 PHP library
-   (https://github.com/thephpleague/oauth2-paypal). We recommend to use
-   Composer Manager module to install the library.
+ * Run composer to install dependencies:
+   composer require "drupal/social_auth_paypal:~2.0"
 
  * Install the dependencies: Social API and Social Auth.
 
  * Install as you would normally install a contributed Drupal module. See:
    https://drupal.org/documentation/install/modules-themes/modules-8
    for further information.
+
 
 CONFIGURATION
 -------------
@@ -70,25 +63,23 @@ Drupal site. If we have an existing Drupal user with the same email address
 provided by Paypal, that user is logged in. Otherwise a new Drupal user is
 created.
 
+
 SUPPORT REQUESTS
 ----------------
 
 Before posting a support request, carefully read the installation
 instructions provided in module documentation page.
 
-Before posting a support request, check Composer Manager status report at
-admin/reports/composer-manager. This status page will show the Paypal The League OAuth2 Base
-PHP library version if Drupal can detect it.
-
 Before posting a support request, check Recent log entries at
 admin/reports/dblog
 
 Once you have done this, you can post a support request at module issue queue:
-https://www.drupal.org/node/2841076
+https://www.drupal.org/project/issues/social_auth_paypal
 
 When posting a support request, please inform what does the status report say
-at admin/reports/composer-manager and if you were able to see any errors in
+at admin/reports/dblog and if you were able to see any errors in
 Recent log entries.
+
 
 MAINTAINERS
 -----------
