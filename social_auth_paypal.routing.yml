@@ -3,7 +3,8 @@ social_auth_paypal.redirect_to_paypal:
   defaults:
     _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::redirectToPaypal'
   requirements:
-    _role: 'anonymous'
+    # Anonymous users can log in, but authenticated users can also associate a new provider.
+    _access: 'TRUE'
   options:
     no_cache: TRUE
 
@@ -12,7 +13,8 @@ social_auth_paypal.callback:
   defaults:
     _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::callback'
   requirements:
-    _role: 'anonymous'
+    # Anonymous users can log in, but authenticated users can also associate a new provider.
+    _access: 'TRUE'
   options:
     no_cache: TRUE
 
