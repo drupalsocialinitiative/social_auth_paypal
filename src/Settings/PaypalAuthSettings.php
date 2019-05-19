@@ -24,12 +24,20 @@ class PaypalAuthSettings extends SettingsBase implements PaypalAuthSettingsInter
   protected $clientSecret;
 
   /**
+   * Whether the app is a sandbox project.
+   *
+   * @var string
+   */
+  protected $isSandbox;
+
+  /**
    * {@inheritdoc}
    */
   public function getClientId() {
     if (!$this->clientId) {
       $this->clientId = $this->config->get('client_id');
     }
+
     return $this->clientId;
   }
 
@@ -40,7 +48,15 @@ class PaypalAuthSettings extends SettingsBase implements PaypalAuthSettingsInter
     if (!$this->clientSecret) {
       $this->clientSecret = $this->config->get('client_secret');
     }
+
     return $this->clientSecret;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isSandbox() {
+    return $this->config->get('is_sandbox');
   }
 
 }

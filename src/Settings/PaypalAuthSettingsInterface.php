@@ -23,4 +23,12 @@ interface PaypalAuthSettingsInterface {
    */
   public function getClientSecret();
 
+  /**
+   * Checks if the app is a sandbox.
+   *
+   * @return bool
+   *   Whether the app is a sandbox.
+   */
+  public function isSandbox();
+
 }

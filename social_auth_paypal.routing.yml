@@ -1,7 +1,7 @@
 social_auth_paypal.redirect_to_paypal:
   path: 'user/login/paypal'
   defaults:
-    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::redirectToPaypal'
+    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::redirectToProvider'
   requirements:
     # Anonymous users can log in, but authenticated users can also associate a new provider.
     _access: 'TRUE'
