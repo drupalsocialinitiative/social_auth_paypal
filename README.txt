@@ -13,7 +13,7 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Social Auth Paypal Module is a Paypal Authentication integration for Drupal.
+Social Auth PayPal Module is a PayPal Authentication integration for Drupal.
 
 
 REQUIREMENTS
@@ -41,10 +41,10 @@ INSTALLATION
 CONFIGURATION
 -------------
 
- * Add your Paypal project OAuth information in
-   Configuration » User Authentication » Paypal.
+ * Add your PayPal project OAuth information in
+   Configuration » User Authentication » PayPal.
 
- * Place a Social Auth Paypal block in Structure » Block Layout.
+ * Place a Social Auth PayPal block in Structure » Block Layout.
 
  * If you already have a Social Auth Login block in the site, rebuild the cache.
 
@@ -52,15 +52,15 @@ CONFIGURATION
 HOW IT WORKS
 ------------
 
-User can click on the Paypal logo on the Social Auth Login block
+User can click on the PayPal logo on the Social Auth Login block
 You can also add a button or link anywhere on the site that points
 to /user/login/paypal, so theming and customizing the button or link
 is very flexible.
 
 When the user opens the /user/login/paypal link, it automatically takes
-user to Paypal Accounts for authentication. Paypal then returns the user to
+user to PayPal Accounts for authentication. PayPal then returns the user to
 Drupal site. If we have an existing Drupal user with the same email address
-provided by Paypal, that user is logged in. Otherwise a new Drupal user is
+provided by PayPal, that user is logged in. Otherwise a new Drupal user is
 created.
 
 

@@ -3,9 +3,9 @@
 namespace Drupal\social_auth_paypal\Settings;
 
 /**
- * Defines an interface for Social Auth Paypal settings.
+ * Defines an interface for Social Auth PayPal settings.
  */
-interface PaypalAuthSettingsInterface {
+interface PayPalAuthSettingsInterface {
 
   /**
    * Gets the client ID.

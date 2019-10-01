@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update, and uninstall functions for the Social Auth Paypal module.
+ * Install, update, and uninstall functions for the Social Auth PayPal module.
  */
 
 use Drupal\social_auth\Controller\SocialAuthController;

@@ -5,13 +5,13 @@ namespace Drupal\Tests\social_auth_paypal\Functional;
 use Drupal\social_api\SocialApiSettingsFormBaseTest;
 
 /**
- * Test Social Auth Paypal settings form.
+ * Test Social Auth PayPal settings form.
  *
  * @group social_auth
  *
  * @ingroup social_auth_paypal
  */
-class SocialAuthPaypalSettingsFormTest extends SocialApiSettingsFormBaseTest {
+class SocialAuthPayPalSettingsFormTest extends SocialApiSettingsFormBaseTest {
 
   /**
    * Modules to enable.

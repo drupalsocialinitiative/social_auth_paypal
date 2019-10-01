@@ -1,7 +1,7 @@
 {
     "name": "drupal/social_auth_paypal",
     "type": "drupal-module",
-    "description": "Social Auth integration for Paypal.",
+    "description": "Social Auth integration for PayPal.",
     "keywords": ["Drupal"],
     "license": "GPL-2.0+",
     "homepage": "https://www.drupal.org/project/social_auth_paypal",
