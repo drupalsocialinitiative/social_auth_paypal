@@ -82,10 +82,8 @@ class PayPalAuthController extends OAuth2ControllerBase {
     // If authentication was successful.
     if ($profile !== NULL) {
 
-      $email = $profile->toArray()['email'];
-
       return $this->userAuthenticator->authenticateUser($profile->getName(),
-                                                        $email,
+                                                        $profile->getEmail(),
                                                         $profile->getId(),
                                                         $this->providerManager->getAccessToken());
     }
