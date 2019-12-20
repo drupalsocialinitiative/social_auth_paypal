@@ -1,7 +1,7 @@
 social_auth_paypal.redirect_to_paypal:
   path: 'user/login/paypal'
   defaults:
-    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::redirectToProvider'
+    _controller: '\Drupal\social_auth_paypal\Controller\PayPalAuthController::redirectToProvider'
   requirements:
     # Anonymous users can log in, but authenticated users can also associate a new provider.
     _access: 'TRUE'
@@ -11,7 +11,7 @@ social_auth_paypal.redirect_to_paypal:
 social_auth_paypal.callback:
   path: 'user/login/paypal/callback'
   defaults:
-    _controller: '\Drupal\social_auth_paypal\Controller\PaypalAuthController::callback'
+    _controller: '\Drupal\social_auth_paypal\Controller\PayPalAuthController::callback'
   requirements:
     # Anonymous users can log in, but authenticated users can also associate a new provider.
     _access: 'TRUE'
@@ -21,7 +21,7 @@ social_auth_paypal.callback:
 social_auth_paypal.settings_form:
   path: 'admin/config/social-api/social-auth/paypal'
   defaults:
-    _title: 'Social Auth Paypal settings'
-    _form: '\Drupal\social_auth_paypal\Form\PaypalAuthSettingsForm'
+    _title: 'Social Auth PayPal settings'
+    _form: '\Drupal\social_auth_paypal\Form\PayPalAuthSettingsForm'
   requirements:
     _permission: 'administer social api authentication'

@@ -1,6 +1,6 @@
-name: Social Auth Paypal
+name: Social Auth PayPal
 type: module
-description: 'Social Auth integration for Paypal.'
+description: 'Social Auth integration for PayPal.'
 package: Social
 core: 8.x
 configure: social_auth_paypal.settings_form

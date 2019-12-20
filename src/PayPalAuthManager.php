@@ -10,7 +10,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 /**
  * Contains all the logic for PayPal OAuth2 authentication.
  */
-class PaypalAuthManager extends OAuth2Manager {
+class PayPalAuthManager extends OAuth2Manager {
 
   /**
    * Constructor.

@@ -7,9 +7,9 @@ use Drupal\Core\Url;
 use Drupal\social_auth\Form\SocialAuthSettingsForm;
 
 /**
- * Settings form for Social Auth Paypal.
+ * Settings form for Social Auth PayPal.
  */
-class PaypalAuthSettingsForm extends SocialAuthSettingsForm {
+class PayPalAuthSettingsForm extends SocialAuthSettingsForm {
 
   /**
    * {@inheritdoc}
@@ -38,9 +38,9 @@ class PaypalAuthSettingsForm extends SocialAuthSettingsForm {
 
     $form['paypal_settings'] = [
       '#type' => 'details',
-      '#title' => $this->t('Paypal Client settings'),
+      '#title' => $this->t('PayPal Client settings'),
       '#open' => TRUE,
-      '#description' => $this->t('You need to first create a Paypal App at <a href="@paypal-dev">@paypal-dev</a>', ['@paypal-dev' => 'https://developer.paypal.com/developer/applications/create']),
+      '#description' => $this->t('You need to first create a PayPal App at <a href="@paypal-dev">@paypal-dev</a>', ['@paypal-dev' => 'https://developer.paypal.com/developer/applications/create']),
     ];
 
     $form['paypal_settings']['client_id'] = [
@@ -63,7 +63,7 @@ class PaypalAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'textfield',
       '#disabled' => TRUE,
       '#title' => $this->t('Return URL'),
-      '#description' => $this->t('Copy this value to <em>Return URL</em> field of your Paypal App settings.'),
+      '#description' => $this->t('Copy this value to <em>Return URL</em> field of your PayPal App settings.'),
       '#default_value' => Url::fromRoute('social_auth_paypal.callback')->setAbsolute()->toString(),
     ];
 

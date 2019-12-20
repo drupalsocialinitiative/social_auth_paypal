@@ -8,14 +8,14 @@ use Drupal\social_api\Plugin\NetworkManager;
 use Drupal\social_auth\Controller\OAuth2ControllerBase;
 use Drupal\social_auth\SocialAuthDataHandler;
 use Drupal\social_auth\User\UserAuthenticator;
-use Drupal\social_auth_paypal\PaypalAuthManager;
+use Drupal\social_auth_paypal\PayPalAuthManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Returns responses for Social Auth PayPal module routes.
  */
-class PaypalAuthController extends OAuth2ControllerBase {
+class PayPalAuthController extends OAuth2ControllerBase {
 
   /**
    * GoogleAuthController constructor.
@@ -26,7 +26,7 @@ class PaypalAuthController extends OAuth2ControllerBase {
    *   Used to get an instance of social_auth_google network plugin.
    * @param \Drupal\social_auth\User\UserAuthenticator $user_authenticator
    *   Used to manage user authentication/registration.
-   * @param \Drupal\social_auth_paypal\PaypalAuthManager $paypal_manager
+   * @param \Drupal\social_auth_paypal\PayPalAuthManager $paypal_manager
    *   Used to manage authentication methods.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request
    *   Used to access GET parameters.
@@ -38,7 +38,7 @@ class PaypalAuthController extends OAuth2ControllerBase {
   public function __construct(MessengerInterface $messenger,
                               NetworkManager $network_manager,
                               UserAuthenticator $user_authenticator,
-                              PaypalAuthManager $paypal_manager,
+                              PayPalAuthManager $paypal_manager,
                               RequestStack $request,
                               SocialAuthDataHandler $data_handler,
                               RendererInterface $renderer) {
@@ -66,7 +66,7 @@ class PaypalAuthController extends OAuth2ControllerBase {
   /**
    * Response for path 'user/login/paypal/callback'.
    *
-   * Paypal returns the user here after user has authenticated in Paypal.
+   * PayPal returns the user here after user has authenticated in PayPal.
    */
   public function callback() {
     // Checks if authentication failed.
@@ -76,13 +76,13 @@ class PaypalAuthController extends OAuth2ControllerBase {
       return $this->redirect('user.login');
     }
 
-    /* @var \Stevenmaguire\OAuth2\Client\Provider\PaypalResourceOwner|null $profile */
+    /** @var \Stevenmaguire\OAuth2\Client\Provider\PayPalResourceOwner|null $profile */
     $profile = $this->processCallback();
 
     // If authentication was successful.
     if ($profile !== NULL) {
 
-      $email = $profile->toArray()['emails'][0]['value'];
+      $email = $profile->toArray()['email'];
 
       return $this->userAuthenticator->authenticateUser($profile->getName(),
                                                         $email,

@@ -5,46 +5,46 @@ namespace Drupal\social_auth_paypal\Plugin\Network;
 use Drupal\Core\Url;
 use Drupal\social_api\SocialApiException;
 use Drupal\social_auth\Plugin\Network\NetworkBase;
-use Drupal\social_auth_paypal\Settings\PaypalAuthSettings;
-use Stevenmaguire\OAuth2\Client\Provider\Paypal;
+use Drupal\social_auth_paypal\Settings\PayPalAuthSettings;
+use Stevenmaguire\OAuth2\Client\Provider\PayPal;
 
 /**
- * Defines a Network Plugin for Social Auth Paypal.
+ * Defines a Network Plugin for Social Auth PayPal.
  *
  * @package Drupal\simple_paypal_connect\Plugin\Network
  *
  * @Network(
  *   id = "social_auth_paypal",
- *   social_network = "Paypal",
+ *   social_network = "PayPal",
  *   type = "social_auth",
  *   handlers = {
  *     "settings": {
- *       "class": "\Drupal\social_auth_paypal\Settings\PaypalAuthSettings",
+ *       "class": "\Drupal\social_auth_paypal\Settings\PayPalAuthSettings",
  *       "config_id": "social_auth_paypal.settings"
  *     }
  *   }
  * )
  */
-class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
+class PayPalAuth extends NetworkBase implements PayPalAuthInterface {
 
   /**
    * Sets the underlying SDK library.
    *
-   * @return \Stevenmaguire\OAuth2\Client\Provider\Paypal|false
+   * @return \Stevenmaguire\OAuth2\Client\Provider\PayPal|false
    *   The initialized 3rd party library instance.
    *   False if library could not be initialized.
    *
-   * @throws SocialApiException
+   * @throws \Drupal\social_api\SocialApiException
    *   If the SDK library does not exist.
    */
   protected function initSdk() {
 
     $class_name = 'Stevenmaguire\OAuth2\Client\Provider\Paypal';
     if (!class_exists($class_name)) {
-      throw new SocialApiException(sprintf('The Paypal Library for the league oAuth not found. Class: %s.', $class_name));
+      throw new SocialApiException(sprintf('The PayPal Library for the league oAuth not found. Class: %s.', $class_name));
     }
 
-    /* @var \Drupal\social_auth_paypal\Settings\PaypalAuthSettings $settings */
+    /**  @var \Drupal\social_auth_paypal\Settings\PayPalAuthSettings $settings */
     $settings = $this->settings;
 
     if ($this->validateConfig($settings)) {
@@ -62,7 +62,7 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
         $league_settings['proxy'] = $proxyUrl;
       }
 
-      return new Paypal($league_settings);
+      return new PayPal($league_settings);
     }
 
     return FALSE;
@@ -71,14 +71,14 @@ class PaypalAuth extends NetworkBase implements PaypalAuthInterface {
   /**
    * Checks that module is configured.
    *
-   * @param \Drupal\social_auth_paypal\Settings\PaypalAuthSettings $settings
-   *   The Paypal auth settings.
+   * @param \Drupal\social_auth_paypal\Settings\PayPalAuthSettings $settings
+   *   The PayPal auth settings.
    *
    * @return bool
    *   True if module is configured.
    *   False otherwise.
    */
-  protected function validateConfig(PaypalAuthSettings $settings) {
+  protected function validateConfig(PayPalAuthSettings $settings) {
     $client_id = $settings->getClientId();
     $client_secret = $settings->getClientSecret();
     if (!$client_id || !$client_secret) {

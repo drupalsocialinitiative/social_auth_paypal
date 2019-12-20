@@ -5,9 +5,9 @@ namespace Drupal\social_auth_paypal\Settings;
 use Drupal\social_api\Settings\SettingsBase;
 
 /**
- * Defines methods to get Social Auth Paypal settings.
+ * Defines methods to get Social Auth PayPal settings.
  */
-class PaypalAuthSettings extends SettingsBase implements PaypalAuthSettingsInterface {
+class PayPalAuthSettings extends SettingsBase implements PayPalAuthSettingsInterface {
 
   /**
    * Client ID.
