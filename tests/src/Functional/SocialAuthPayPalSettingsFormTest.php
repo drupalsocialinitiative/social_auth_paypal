@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\social_auth_paypal\Functional;
 
-use Drupal\social_api\SocialApiSettingsFormBaseTest;
+use Drupal\Tests\social_auth\Functional\SocialAuthTestBase;
 
 /**
  * Test Social Auth PayPal settings form.
@@ -11,7 +11,7 @@ use Drupal\social_api\SocialApiSettingsFormBaseTest;
  *
  * @ingroup social_auth_paypal
  */
-class SocialAuthPayPalSettingsFormTest extends SocialApiSettingsFormBaseTest {
+class SocialAuthPayPalSettingsFormTest extends SocialAuthTestBase {
 
   /**
    * Modules to enable.
@@ -25,31 +25,48 @@ class SocialAuthPayPalSettingsFormTest extends SocialApiSettingsFormBaseTest {
    */
   protected function setUp() {
     $this->module = 'social_auth_paypal';
-    $this->socialNetwork = 'paypal';
-    $this->moduleType = 'social-auth';
+    $this->provider = 'paypal';
 
     parent::setUp();
   }
 
   /**
-   * {@inheritdoc}
+   * Test if implementer is shown in the integration list.
    */
   public function testIsAvailableInIntegrationList() {
-    $this->fields = ['app_key', 'app_secret'];
+    $this->fields = ['client_id', 'client_secret', 'is_sandbox'];
 
-    parent::testIsAvailableInIntegrationList();
+    $this->checkIsAvailableInIntegrationList();
   }
 
   /**
-   * {@inheritdoc}
+   * Test if permissions are set correctly for settings page.
+   *
+   * @throws \Behat\Mink\Exception\ElementNotFoundException
+   * @throws \Behat\Mink\Exception\ExpectationException
+   */
+  public function testPermissionForSettingsPage() {
+    $this->checkPermissionForSettingsPage();
+  }
+
+  /**
+   * Test settings form submission.
    */
   public function testSettingsFormSubmission() {
+    $value = '';
+    if (rand(0, 1)) {
+      $value = 'true';
+    }
+    else {
+      $value = 'false';
+    }
     $this->edit = [
-      'app_key' => $this->randomString(10),
-      'app_secret' => $this->randomString(10),
+      'client_id' => $this->randomString(10),
+      'client_secret' => $this->randomString(10),
+      'is_sandbox' => $value,
     ];
 
-    parent::testSettingsFormSubmission();
+    $this->checkSettingsFormSubmission();
   }
 
 }

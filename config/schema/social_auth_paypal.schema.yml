@@ -8,3 +8,6 @@ social_auth_paypal.settings:
     client_secret:
       type: string
       label: 'Client Secret'
+    is_sandbox:
+      type: string
+      label: 'Is this a sandbox?'
